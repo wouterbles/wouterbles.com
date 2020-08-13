@@ -48,17 +48,17 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          {
-            resolve: `gatsby-remark-prismjs`,
-          },
           `gatsby-remark-autolink-headers`,
           {
             resolve: `gatsby-remark-images-contentful`,
             options: {
               maxWidth: 650,
-              backgroundColor: 'white',
+              showCaptions: true,
               linkImagesToOriginal: false,
             },
+          },
+          {
+            resolve: `gatsby-remark-images-medium-zoom`,
           },
         ],
       },
@@ -75,7 +75,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Wouter Bles',
+        name: 'Wouter Bles | ',
         short_name: 'Wouter Bles',
         start_url: '/',
         background_color: '#ffffff',

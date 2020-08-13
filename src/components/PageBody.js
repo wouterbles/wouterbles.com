@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-require('prismjs/themes/prism.css')
 
 const Body = styled.div`
   margin: 0 auto;
