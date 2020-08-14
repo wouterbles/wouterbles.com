@@ -53,12 +53,16 @@ module.exports = {
             resolve: `gatsby-remark-images-contentful`,
             options: {
               maxWidth: 650,
+              withWebp: true,
               showCaptions: true,
               linkImagesToOriginal: false,
             },
           },
           {
             resolve: `gatsby-remark-images-medium-zoom`,
+          },
+          {
+            resolve: `gatsby-remark-smartypants`,
           },
         ],
       },
@@ -75,7 +79,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Wouter Bles | ',
+        name: 'Wouter Bles',
         short_name: 'Wouter Bles',
         start_url: '/',
         background_color: '#ffffff',
@@ -93,5 +97,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-netlify',
+    'gatsby-plugin-netlify-cache'
   ],
 }
