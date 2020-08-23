@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-const Post = styled.li`
+const Post = styled.article`
   position: relative;
   border: 1px solid ${props => props.theme.colors.secondary};
   border-radius: 2px;

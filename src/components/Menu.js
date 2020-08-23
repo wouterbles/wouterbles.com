@@ -13,13 +13,10 @@ const Nav = styled.nav`
   max-width: ${props => props.theme.sizes.maxWidth};
   margin: 0 auto;
   padding: 0 1.5em;
+  display: flex;
+  justify-content: space-between;
 
-  ul {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  li {
+  span {
     display: inline-block;
     margin-left: 1em;
     &:first-of-type {
@@ -50,15 +47,13 @@ const Menu = () => {
   return (
     <Header>
       <Nav>
-        <ul>
           {menuLinks.map(link => (
-            <li key={link.name}>
+            <span key={link.name}>
               <Link to={link.slug} activeStyle={activeLinkStyle}>
                 {link.name}
               </Link>
-            </li>
+            </span>
           ))}
-        </ul>
       </Nav>
     </Header>
   )

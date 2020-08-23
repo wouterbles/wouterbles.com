@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-const List = styled.ul`
+const List = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
