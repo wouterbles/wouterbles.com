@@ -47,13 +47,13 @@ const Menu = () => {
   return (
     <Header>
       <Nav>
-          {menuLinks.map(link => (
-            <span key={link.name}>
-              <Link to={link.slug} activeStyle={activeLinkStyle}>
-                {link.name}
-              </Link>
-            </span>
-          ))}
+        {menuLinks.map(link => (
+          <span key={link.name}>
+            <Link to={link.slug} activeStyle={activeLinkStyle}>
+              {link.name}
+            </Link>
+          </span>
+        ))}
       </Nav>
     </Header>
   )
