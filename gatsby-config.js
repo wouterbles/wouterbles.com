@@ -55,11 +55,8 @@ module.exports = {
               maxWidth: 650,
               withWebp: true,
               showCaptions: true,
-              linkImagesToOriginal: false,
+              linkImagesToOriginal: true,
             },
-          },
-          {
-            resolve: `gatsby-remark-images-medium-zoom`,
           },
           {
             resolve: `gatsby-remark-smartypants`,
