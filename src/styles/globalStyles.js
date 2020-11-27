@@ -207,4 +207,11 @@ export const globalStyles = css`
   body:not(.user-is-tabbing) a:focus {
     outline: none;
   }
+
+  figcaption {
+    font-size: 95%;
+    color: #586066;
+    margin-top: 1rem;
+    text-align: center;
+  }
 `
