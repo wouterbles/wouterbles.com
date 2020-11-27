@@ -28,7 +28,7 @@ const SEO = ({ title, description, image }) => {
         lang: `en`,
       }}
       title={title}
-      defaultTitle={site.siteMetadata.title}
+      defaultTitle={site.siteMetadata.fullTitle}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
     >
       <meta charSet="utf-8" />

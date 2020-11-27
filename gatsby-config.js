@@ -18,8 +18,9 @@ try {
 module.exports = {
   siteMetadata: {
     title: 'Wouter Bles',
+    fullTitle: 'Wouter Bles | Climbing stories in the Alps',
     description:
-      'A starter template to build amazing static websites with Gatsby, Contentful and Netlify',
+      'A climbing blog describing my climbing and skiing adventures in the Alps.',
     siteUrl: 'https://wouterbles.com',
     image: '/images/share.jpg',
     menuLinks: [
