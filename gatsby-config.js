@@ -20,7 +20,7 @@ module.exports = {
     title: 'Wouter Bles',
     fullTitle: 'Wouter Bles | Climbing stories in the Alps',
     description:
-      'A climbing blog describing my climbing and skiing adventures in the Alps.',
+      'A climbing blog describing my climbing and skiing adventures in the Alps by which I hope to inspire and inform other climbers.',
     siteUrl: 'https://wouterbles.com',
     image: '/images/share.jpg',
     menuLinks: [
