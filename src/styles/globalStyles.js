@@ -213,5 +213,6 @@ export const globalStyles = css`
     color: #586066;
     margin-top: 1rem;
     text-align: center;
+    line-height: 1.25;
   }
 `
