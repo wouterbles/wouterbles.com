@@ -95,10 +95,12 @@ module.exports = {
     },
     'gatsby-plugin-netlify',
     {
-      resolve: 'gatsby-plugin-gtag',
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: 'G-6ED3KYXDY7',
-        head: false,
+        trackingIds: 'G-6ED3KYXDY7',
+        pluginConfig: {
+          head: false,
+        },
       },
     },
   ],
