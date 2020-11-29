@@ -94,5 +94,12 @@ module.exports = {
       },
     },
     'gatsby-plugin-netlify',
+    {
+      resolve: 'gatsby-plugin-gtag',
+      options: {
+        trackingId: 'G-6ED3KYXDY7',
+        head: false,
+      },
+    },
   ],
 }
