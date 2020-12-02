@@ -92,6 +92,14 @@ const Body = styled.div`
       background: inherit !important;
     }
   }
+
+  p:first-of-type:first-letter {
+    float: left;
+    font-size: 2.9rem;
+    line-height: 1;
+    font-weight: bold;
+    margin-right: 9px;
+  }
 `
 
 const PageBody = props => {
