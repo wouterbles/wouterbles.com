@@ -93,7 +93,7 @@ const Body = styled.div`
     }
   }
 
-  p:first-of-type:first-letter {
+  p:first-of-type::first-letter {
     float: left;
     font-size: 2.9rem;
     line-height: 1;

@@ -42,16 +42,20 @@ module.exports = {
     basePath: '/',
   },
   plugins: [
-    `gatsby-plugin-emotion`,
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-sitemap',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-theme-ui',
+    'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
+   
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          `gatsby-remark-autolink-headers`,
+          'gatsby-remark-autolink-headers',
           {
-            resolve: `gatsby-remark-images-contentful`,
+            resolve: 'gatsby-remark-images-contentful',
             options: {
               maxWidth: 650,
               withWebp: true,
@@ -59,12 +63,11 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-smartypants`,
+            resolve: 'gatsby-remark-smartypants',
           },
         ],
       },
     },
-    `gatsby-plugin-catch-links`,
     {
       resolve: 'gatsby-source-contentful',
       options:
@@ -72,7 +75,6 @@ module.exports = {
           ? contentfulConfig.development
           : contentfulConfig.production,
     },
-    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -87,15 +89,14 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     {
-      resolve: `gatsby-plugin-schema-snapshot`,
+      resolve: 'gatsby-plugin-schema-snapshot',
       options: {
-        path: `./src/gatsby/schema/schema.gql`,
+        path: './src/gatsby/schema/schema.gql',
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },
     },
-    'gatsby-plugin-netlify',
     {
-      resolve: `gatsby-plugin-google-gtag`,
+      resolve: 'gatsby-plugin-google-gtag',
       options: {
         trackingIds: ['G-6ED3KYXDY7'],
         pluginConfig: {
