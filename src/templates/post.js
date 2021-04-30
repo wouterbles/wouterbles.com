@@ -12,7 +12,6 @@ import SEO from '../components/SEO'
 const PostTemplate = ({ data, pageContext }) => {
   const {
     title,
-    metaDescription,
     heroImage,
     body,
     publishDate,
@@ -34,11 +33,7 @@ const PostTemplate = ({ data, pageContext }) => {
     <Layout>
       <SEO
         title={title}
-        description={
-          metaDescription
-            ? metaDescription.internal.content
-            : body.childMarkdownRemark.excerpt
-        }
+        description={body.childMarkdownRemark.excerpt}
         image={ogImage}
       />
       <Hero title={title} image={heroImage} height={'50vh'} />
@@ -60,11 +55,6 @@ export const query = graphql`
     contentfulPost(slug: { eq: $slug }) {
       title
       slug
-      metaDescription {
-        internal {
-          content
-        }
-      }
       publishDate(formatString: "MMMM DD, YYYY")
       publishDateISO: publishDate(formatString: "YYYY-MM-DD")
       tags {

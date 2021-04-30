@@ -1,4 +1,4 @@
-### Type definitions saved at 2020-01-25T02:26:44.337Z ###
+### Type definitions saved at 2021-04-30T12:27:03.386Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -68,7 +68,55 @@ type Directory implements Node @dontInfer {
   birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
 }
 
+type Site implements Node @dontInfer {
+  buildTime: Date @dateformat
+  siteMetadata: SiteSiteMetadata
+  port: Int
+  host: String
+  polyfill: Boolean
+  pathPrefix: String
+}
+
+type SiteSiteMetadata @derivedTypes {
+  title: String
+  description: String
+  fullTitle: String
+  siteUrl: String
+  image: String
+  menuLinks: [SiteSiteMetadataMenuLinks]
+  postsPerFirstPage: Int
+  postsPerPage: Int
+  basePath: String
+}
+
+type SiteSiteMetadataMenuLinks {
+  name: String
+  slug: String
+}
+
+type SiteFunction implements Node @dontInfer {
+  apiRoute: String!
+  originalFilePath: String!
+  relativeCompiledFilePath: String!
+  absoluteCompiledFilePath: String!
+  matchPath: String
+}
+
+type SitePage implements Node @dontInfer {
+  path: String!
+  component: String!
+  internalComponentName: String!
+  componentChunkName: String!
+  matchPath: String
+}
+
+type ThemeUiConfig implements Node @dontInfer {
+  preset: JSON
+  prismPreset: JSON
+}
+
 type MarkdownHeading {
+  id: String
   value: String
   depth: Int
 }
@@ -94,7 +142,7 @@ type MarkdownWordCount {
   words: Int
 }
 
-type MarkdownRemark implements Node @childOf(mimeTypes: [], types: ["contentfulPostBodyTextNode", "contentfulPostMetaDescriptionTextNode", "contentfulPageBodyTextNode", "contentfulPageMetaDescriptionTextNode"], many: false) @derivedTypes @dontInfer {
+type MarkdownRemark implements Node @childOf(mimeTypes: [], types: ["contentfulPostBodyTextNode", "contentfulPageBodyTextNode"]) @derivedTypes @dontInfer {
   frontmatter: MarkdownRemarkFrontmatter
   excerpt: String
   rawMarkdownBody: String
@@ -104,56 +152,27 @@ type MarkdownRemarkFrontmatter {
   title: String
 }
 
-type contentfulPostBodyTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPost"], many: false) @dontInfer {
-  body: String
+interface ContentfulEntry implements Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
 }
 
-type contentfulPageMetaDescriptionTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPage"], many: false) @dontInfer {
-  metaDescription: String
+interface ContentfulReference {
+  contentful_id: String!
+  id: ID!
 }
 
-type contentfulPageBodyTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPage"], many: false) @dontInfer {
-  body: String
-}
-
-type contentfulPostMetaDescriptionTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPost"], many: false) @dontInfer {
-  metaDescription: String
-}
-
-type ContentfulTag implements Node @derivedTypes @dontInfer {
-  title: String
-  slug: String
-  post: [ContentfulPost] @link(by: "id", from: "post___NODE")
+type ContentfulAsset implements ContentfulReference & Node @derivedTypes @dontInfer {
+  contentful_id: String!
   spaceId: String
-  contentful_id: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
-  sys: ContentfulTagSys
-  node_locale: String
-}
-
-type ContentfulPost implements Node @derivedTypes @dontInfer {
-  title: String
-  slug: String
-  publishDate: Date @dateformat
-  heroImage: ContentfulAsset @link(by: "id", from: "heroImage___NODE")
-  tags: [ContentfulTag] @link(by: "id", from: "tags___NODE")
-  body: contentfulPostBodyTextNode @link(by: "id", from: "body___NODE")
-  spaceId: String
-  contentful_id: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
-  sys: ContentfulPostSys
-  node_locale: String
-  metaDescription: contentfulPostMetaDescriptionTextNode @link(by: "id", from: "metaDescription___NODE")
-}
-
-type ContentfulAsset implements Node @derivedTypes @dontInfer {
-  contentful_id: String
   file: ContentfulAssetFile
   title: String
   description: String
   node_locale: String
+  sys: ContentfulAssetSys
 }
 
 type ContentfulAssetFile @derivedTypes {
@@ -173,9 +192,39 @@ type ContentfulAssetFileDetailsImage {
   height: Int
 }
 
-type ContentfulPostSys @derivedTypes {
+type ContentfulAssetSys {
+  type: String
   revision: Int
+}
+
+type ContentfulPost implements ContentfulReference & ContentfulEntry & Node @derivedTypes @dontInfer {
+  contentful_id: String!
+  node_locale: String!
+  title: String
+  slug: String
+  publishDate: Date @dateformat
+  heroImage: ContentfulAsset @link(by: "id", from: "heroImage___NODE")
+  body: contentfulPostBodyTextNode @link(by: "id", from: "body___NODE")
+  spaceId: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  sys: ContentfulPostSys
+  tags: [ContentfulTag] @link(by: "id", from: "tags___NODE")
+}
+
+type contentfulPostBodyTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPost"]) @derivedTypes @dontInfer {
+  body: String
+  sys: contentfulPostBodyTextNodeSys
+}
+
+type contentfulPostBodyTextNodeSys {
+  type: String
+}
+
+type ContentfulPostSys @derivedTypes {
+  type: String
   contentType: ContentfulPostSysContentType
+  revision: Int
 }
 
 type ContentfulPostSysContentType @derivedTypes {
@@ -186,10 +235,22 @@ type ContentfulPostSysContentTypeSys {
   type: String
   linkType: String
   id: String
-  contentful_id: String
+}
+
+type ContentfulTag implements ContentfulReference & ContentfulEntry & Node @derivedTypes @dontInfer {
+  contentful_id: String!
+  node_locale: String!
+  title: String
+  slug: String
+  post: [ContentfulPost] @link(by: "id", from: "post___NODE")
+  spaceId: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  sys: ContentfulTagSys
 }
 
 type ContentfulTagSys @derivedTypes {
+  type: String
   revision: Int
   contentType: ContentfulTagSysContentType
 }
@@ -202,23 +263,31 @@ type ContentfulTagSysContentTypeSys {
   type: String
   linkType: String
   id: String
-  contentful_id: String
 }
 
-type ContentfulPage implements Node @derivedTypes @dontInfer {
+type ContentfulPage implements ContentfulReference & ContentfulEntry & Node @derivedTypes @dontInfer {
+  contentful_id: String!
+  node_locale: String!
   title: String
   slug: String
   body: contentfulPageBodyTextNode @link(by: "id", from: "body___NODE")
-  metaDescription: contentfulPageMetaDescriptionTextNode @link(by: "id", from: "metaDescription___NODE")
   spaceId: String
-  contentful_id: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   sys: ContentfulPageSys
-  node_locale: String
+}
+
+type contentfulPageBodyTextNode implements Node @childOf(mimeTypes: [], types: ["ContentfulPage"]) @derivedTypes @dontInfer {
+  body: String
+  sys: contentfulPageBodyTextNodeSys
+}
+
+type contentfulPageBodyTextNodeSys {
+  type: String
 }
 
 type ContentfulPageSys @derivedTypes {
+  type: String
   revision: Int
   contentType: ContentfulPageSysContentType
 }
@@ -231,11 +300,15 @@ type ContentfulPageSysContentTypeSys {
   type: String
   linkType: String
   id: String
-  contentful_id: String
 }
 
-type ContentfulContentType implements Node @dontInfer {
+type ContentfulContentType implements Node @derivedTypes @dontInfer {
   name: String
   displayField: String
   description: String
+  sys: ContentfulContentTypeSys
+}
+
+type ContentfulContentTypeSys {
+  type: String
 }
